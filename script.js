@@ -56,26 +56,26 @@
 
 
                     // This is Promises 
-// function getData(endpoint) {
-//     return new Promise((resolve, reject) => {
-//         const xhr = new XMLHttpRequest();
+function getData(endpoint) {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
 
-//         xhr.open('GET', endpoint);
+        xhr.open('GET', endpoint);
 
-//         xhr.onreadystatechange = function () {
-//             if (this.readyState === 4) {
-//                 if (this.status === 200) {
-//                     resolve(JSON.parse(this.responseText));
-//                 } else {
-//                     reject('Something Went wrong');
-//                 }
-//             }
-//         }
-//         setTimeout(() => {
-//             xhr.send();
-//         }, Math.floor(Math.random() * 3000) + 1000);
-//     })
-// }
+        xhr.onreadystatechange = function () {
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    resolve(JSON.parse(this.responseText));
+                } else {
+                    reject('Something Went wrong');
+                }
+            }
+        }
+        setTimeout(() => {
+            xhr.send();
+        }, Math.floor(Math.random() * 3000) + 1000);
+    })
+}
 // // create these varaibles to store in the json values in 
 // const moviesPromise = getData('./movies.json');
 // const actorsPromise = getData('./actors.json');
@@ -158,3 +158,58 @@ function hideSpinner(){
 }
 document.querySelector("#generate").addEventListener('click',fetchUser);
 fetchUser();
+
+
+// Using Async& Await insted of .then promise call backs
+async function getUsers() {
+  const res = await fetch('https://jsonplaceholder.typicode.com/users');
+  const data = await res.json();
+  console.log(data);
+}
+// Async with Arrow functions
+
+const getPosts1 = async () => {
+  const res = await fetch('https://jsonplaceholder.typicode.com/users');
+  const data = await res.json();
+  console.log(data);
+}
+
+// getUsers();
+// getPosts1(); dont forget to call the functions :) 
+
+try {
+  // this here yo handle all error 
+  // trow new error 
+  // fro the async & await functions
+} catch (error) {
+  
+}
+
+async function getAllData() { // This functions refers to getData endpoint (Par)
+const movies = await getData('./movies.json');
+console.log(movies); // This way is cleaner then writing .then ^^ Refer to getData function
+const actors = await getData('./actors.json');
+console.log(actors); 
+const directors = await getData('./directors.json');
+console.log(directors); 
+// or
+console.log(movies,actors,directors);
+};
+
+// getAllData(); call up the function
+
+
+// with Async Arrow functions u type async () => ****  
+//create the async functions with Fetch()
+async function getAllDataWithFetch() {
+  const moviesRes = await fetch('./movies.json') ;
+  const movies = await moviesRes.json();
+
+  const actorsRes = await fetch('./actors.json') ;
+  const actors = await actorsRes.json();
+
+  const directorsRes = await fetch('./directors.json') ;
+  const directors = await directorsRes.json();
+  
+  console.log(movies,actors,directors);
+}
