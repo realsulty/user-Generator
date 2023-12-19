@@ -93,7 +93,7 @@
 
 function fetchUser() {
  showSpinner();
- fetch('https://randomuser.me/api1')
+ fetch('https://randomuser.me/api')
  .then((res) => {
   if (!res.ok) {
 throw new Error('Request Failed');
