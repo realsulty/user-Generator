@@ -92,12 +92,24 @@
 // .catch((error) => console.log(error));
 
 function fetchUser() {
-    showSpinner();
- fetch('https://randomuser.me/api')
- .then((res) => res.json())
+ showSpinner();
+ fetch('https://randomuser.me/api1')
+ .then((res) => {
+  if (!res.ok) {
+throw new Error('Request Failed');
+  }
+
+  return res.json()
+})
  .then((data) => {
     hideSpinner();
     displayUser(data.results[0]);
+ })
+ //Here we define the Error handler - .catch() method
+ .catch((error) => {
+  document.querySelector('#user').innerHTML = `
+  <p class="text-xl text-center text-red-500 mb-5">${error}</p>
+  `
  })
 }
 
@@ -110,7 +122,8 @@ function displayUser(user) {
         document.body.style.backgroundColor = 'steelblue';
     }
 
-
+ // This i the quick and dirty way of doing it .. you can change this ti clean code 
+ // refer to shopping list project when building
 userDisplay.innerHTML = `
  <div class="flex justify-between">
 <div class="flex">
